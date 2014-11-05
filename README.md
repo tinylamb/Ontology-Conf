@@ -8,7 +8,7 @@
 
 1. boost_1_44_0
    
-   见boost_1_44_0安装说明
+   [boost_1_44_0安装说明](https://github.com/tinylamb/Ontology-Conf/blob/master/Boost_Install.md)
    
 2. mysql-server,mysql-client,libmysqlclient-dev
    

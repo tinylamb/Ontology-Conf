@@ -1,10 +1,11 @@
 ###准备安装文件
 
-* [boost_1_44_0](www.boost.org/users/history/version_1_44_0.html)
+1. 下载[boost_1_44_0](www.boost.org/users/history/version_1_44_0.html)
 
-* `tar xzf boost_1_44_0.tar.gz /usr/local`
+2. 解压`tar xzf boost_1_44_0.tar.gz /usr/local`
 
-* [more about tar](http://segmentfault.com/q/1010000000670089)
+
+*tips [more about tar](http://segmentfault.com/q/1010000000670089)*
 
 ###安装依赖环境
 
@@ -20,20 +21,32 @@
 
 ###安装boost
 
-* `sudo ./bjam`
+* 编译`sudo ./bjam`
 
 	报错的解决方法
 	
-	1 error:Threading support unavaliable
+	1 [error:Threading support unavaliable](http://stackoverflow.com/questions/8297652/error-boost-disable-threads)
 	
 	修改`$BOOST/boost/config/stdlib/libstdcpp3.hpp`
 	
+	```
 	
-	2 error:TIME_UTC
+	＃  if defined(_GLIBCXX_HAVE_GTHR_DEFAULT) \ 
 	
-	修改`$BOOST/boost/thread/xtime.hpp` 
+ 		        || defined(_GLIBCXX__PTHREADS) \ 
+ 	
+ 	+	        || defined(_GLIBCXX_HAS_GTHREADS) 
 	
-	`$BOOST/libs/thread/src/pthread/timecnov.inl`文件
+	```
+	
+
+	2 [error:TIME_UTC](http://stackoverflow.com/questions/13645756/boosttime-utc-with-different-boost-versions)
+	
+	修改如下两个文件
+	
+	`$BOOST/boost/thread/xtime.hpp` 
+	
+	`$BOOST/libs/thread/src/pthread/timecnov.inl`
 	
 	替换`TIME_UTC` 为 `TIME_UTC_`
 	
@@ -46,14 +59,12 @@
 
 **link lib path : /usr/local/boost_1_44_0/stage/lib**
 
-* `sudo ./bjam install`
+* 安装lib文件`sudo ./bjam install`
 
 ###安装boost::regex
 
-*  `cd $BOOST/libs/regex/build`
+*  进入regex目录`cd $BOOST/libs/regex/build`
 
-*  `sudo make -f gcc.mak`
+*  编译动态链接库`sudo make -f gcc.mak ;sudo make -f gcc-shared.mak`
 
-*  `sudo make -f gcc-shared.mak`
-
-*   `cd gcc;sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib /usr/lib`
+*  symbol link`cd gcc;sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib /usr/lib`
