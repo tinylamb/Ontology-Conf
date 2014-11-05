@@ -23,8 +23,8 @@
    主要的**libutil libxml4nlp libservice**在 `/usr/local/lib`中
    
    
-#### 3 makefile
-1. 见makefile文件
+#### 3 make 源文件
+1. 见[makefile文件](https://github.com/tinylamb/Ontology-Conf/blob/master/makefile)
 
 2. `cd pathto_ontology/system; make -f makefile`
 
