@@ -1,7 +1,12 @@
 #如果提示文件找不到,添加需要的 INCLUDE，LINK 路径
 #修改时,请对比原makefile文件,并不要修改原文件
-INCLUDE=./ -I ../segment -I ../conceptRecognise -I ../utility -I ../regexMatch -I ../include -I ../suffixTree -I ../wikiProject -I ../relationExtractor -I ../simWord -I ../clustering -I ../pattern -I /usr/local/include -I /usr/local/boost_1_44_0 
-VPATH=:../segment:../conceptRecognise:../utility:../suffixTree:../regexMatch:../wikiProject:../utility:../relationExtractor:../simWord:../clustering:../pattern
+INCLUDE = ./ -I ../segment -I ../conceptRecognise -I ../utility \
+	  -I ../regexMatch -I ../include -I ../suffixTree -I ../wikiProject \
+	  -I ../relationExtractor -I ../simWord -I ../clustering -I ../pattern \
+	  -I /usr/local/include -I /usr/local/boost_1_44_0 
+VPATH =:../segment:../conceptRecognise:../utility:../suffixTree \
+    :../regexMatch:../wikiProject:../utility:../relationExtractor \
+    :../simWord:../clustering:../pattern
  
 object1=text.o corpus.o simpleConceptExtractor.o
 object2=getRulePattern.o regexMatch.o
@@ -11,9 +16,12 @@ object5=suffixTree.o charConverter.o
 object6=relationPopulation.o mark.o kmeans.o patternUtility.o pattern.o synForest.o
 object7=clustering.o wordVector.o distance.o tree.o
 object8=getPattern.o editDistanceCal.o patternGenerator.o
-object=$(object1) $(object2) $(object3) $(object4) $(object5) $(object6) $(object7) $(object8) wikiInfoExtractor.o wikiInfoExtractor.o compoundConceptExtractor.o addElement.o ontoLearner.o ontologyEnrichment.o sentParser.o
+object=$(object1) $(object2) $(object3) $(object4) $(object5) $(object6) $(object7) $(object8) \
+       wikiInfoExtractor.o wikiInfoExtractor.o compoundConceptExtractor.o \
+       addElement.o ontoLearner.o ontologyEnrichment.o sentParser.o
 ontologyEnrichment:$(object)
-	g++ -o ontologyEnrichment -g $^ -I$(INCLUDE) -lmysqlclient -lboost_regex-gcc-1_42 -L ../segment -lsegment  -L /usr/local/lib -lutil -lxml4nlp -lservice 
+	g++ -o ontologyEnrichment -g $^ -I$(INCLUDE) -lmysqlclient -lboost_regex-gcc-1_42 \
+	    -L ../segment -lsegment  -L /usr/local/lib -lutil -lxml4nlp -lservice 
 myUtility.o:myUtility.cpp
 	g++ -g -c $^ -I$(INCLUDE) -L ../segment -lsegment
  
