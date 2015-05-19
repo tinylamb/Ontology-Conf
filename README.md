@@ -36,7 +36,7 @@
    
 3. [ltp-service](https://github.com/HIT-SCIR/ltp)
 
-   修改LTPOption.h文件,启用define LINUX_OS 注释掉//#define WIN_OS
+   修改__ltpService/LTPOption.h文件,启用define LINUX_OS 注释掉//#define WIN_OS
    
    在ltp_service文件内执行 `./configure;make;sudo make install`
    
