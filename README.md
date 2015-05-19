@@ -40,6 +40,8 @@
    
    在ltp_service文件内执行 `./configure;make;sudo make install`
    
+   `make` 需要g++支持.通过`sudo apt-get install g++`安装
+   
    主要的**libutil libxml4nlp libservice**在 `/usr/local/lib`中
    
    
