@@ -21,8 +21,20 @@
    2 32位Ubuntu.
    
    源码中已经包含boost_1_44_0在32位下编译后的文件，将之放置在 `/usr/local`下即可。
+
+   编译Boost.Regex的[方法](http://www.cnblogs.com/ylan2009/articles/2433522.html)如下:
    
-   并在`$BOOST/libs/regex/build/gcc` 执行如下命令，生成动态链接库
+   如果当前目录不存在名为gcc的文件夹，则执行下面操作：
+   
+   在`$BOOST_PATH/libs/regex/build/`执行如下命令，生成动态链接库
+   
+   ```
+   make -f gcc-shared.mak
+   sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib /usr/lib
+   ````
+   若存在gcc文件夹，且文件夹中只有`*.o`文件，而没有`*.so`文件。则执行下面操作
+   
+   在`$BOOST_PATH/libs/regex/build/gcc` 执行如下命令，生成动态链接库
    
    ```
    g++ *.o -fPIC -shared -o libboost_regex-gcc-1_42.so
