@@ -1,5 +1,5 @@
 #如果提示文件找不到,添加需要的 INCLUDE，LINK 路径
-#修改时,请对比原makefile文件,并不要修改原文件
+#修改时,请对比原makefile文件,并不要修改原文件(将原makefile文件备份)
 INCLUDE = ./ -I ../segment -I ../conceptRecognise -I ../utility \
 	  -I ../regexMatch -I ../include -I ../suffixTree -I ../wikiProject \
 	  -I ../relationExtractor -I ../simWord -I ../clustering -I ../pattern \
@@ -7,7 +7,9 @@ INCLUDE = ./ -I ../segment -I ../conceptRecognise -I ../utility \
 VPATH =:../segment:../conceptRecognise:../utility:../suffixTree \
     :../regexMatch:../wikiProject:../utility:../relationExtractor \
     :../simWord:../clustering:../pattern
- 
+
+BOOSTLIBS = -L /usr/local/boost_1_44_0/libs/regex/build/gcc -lboost_regex-gcc-1_42
+
 object1=text.o corpus.o simpleConceptExtractor.o
 object2=getRulePattern.o regexMatch.o
 object3=wikiCategory.o zh2sim.o connectMysql.o regexMatch.o
@@ -20,7 +22,7 @@ object=$(object1) $(object2) $(object3) $(object4) $(object5) $(object6) $(objec
        wikiInfoExtractor.o wikiInfoExtractor.o compoundConceptExtractor.o \
        addElement.o ontoLearner.o ontologyEnrichment.o sentParser.o
 ontologyEnrichment:$(object)
-	g++ -o ontologyEnrichment -g $^ -I$(INCLUDE) -lmysqlclient -lboost_regex-gcc-1_42 \
+	g++ -o ontologyEnrichment -g $^ -I$(INCLUDE) -lmysqlclient ${BOOSTLIBS} \
 	    -L ../segment -lsegment  -L /usr/local/lib -lutil -lxml4nlp -lservice 
 myUtility.o:myUtility.cpp
 	g++ -g -c $^ -I$(INCLUDE) -L ../segment -lsegment
@@ -39,10 +41,10 @@ corpus.o:corpus.cpp
 getRulePattern.o:getRulePattern.cpp
 	g++ -g -c $^ -I$(INCLUDE) 
 regexMatch.o:regexMatch.cpp 
-	g++ -c -g $^ -I$(INCLUDE) -lboost_regex-gcc-1_42
+	g++ -c -g $^ -I$(INCLUDE) ${BOOSTLIBS}
  
 wikiInfoExtractor.o:wikiInfoExtractor.cpp
-	g++ -g -c $^ -I$(INCLUDE) -lboost_regex-gcc-1_42 -L ../segment -lsegment
+	g++ -g -c $^ -I$(INCLUDE) ${BOOSTLIBS} -L ../segment -lsegment
  
 compoundConceptExtractor.o:compoundConceptExtractor.cpp
 	g++ -g -c $^ -I$(INCLUDE) -L ../segment -lsegment
@@ -50,7 +52,7 @@ compoundConceptExtractor.o:compoundConceptExtractor.cpp
 # cateRel.o:$(object3)
 	# g++ -g -o cateRel.o $^  -I$(INCLUDE) -lboost_regex-gcc-1_42 -lmysqlclient -L ../segment -lsegment 
 wikiCategory.o:wikiCategory.cpp
-	g++ -c -g $^ -I$(INCLUDE) -lboost_regex-gcc-1_42 -L ../segment -lsegment
+	g++ -c -g $^ -I$(INCLUDE) ${BOOSTLIBS} -L ../segment -lsegment
 zh2sim.o:zh2sim.cpp
 	g++ -g -c $^ -I$(INCLUDE)
 connectMysql.o:connectMysql.cpp
@@ -100,9 +102,9 @@ tree.o:tree.cpp
 	g++ -c -g $^
  
 getPattern.o:getPattern.cpp
-	g++ -g -c $^ -I$(INCLUDE) -lboost_regex-gcc-1_42
+	g++ -g -c $^ -I$(INCLUDE) ${BOOSTLIBS}
 patternGenerator.o:patternGenerator.cpp
-	g++ -g -c $^ -I$(INCLUDE) -lboost_regex-gcc-1_42
+	g++ -g -c $^ -I$(INCLUDE) ${BOOSTLIBS}
 editDistanceCal.o:editDistanceCal.cpp
 	g++ -g -c $^ -I$(INCLUDE)
  
