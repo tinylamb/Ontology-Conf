@@ -42,7 +42,9 @@
    ````
    
    
-2. mysql-server,mysql-client,libmysqlclient-dev
+2. 安装mysql
+
+    包括mysql-server,mysql-client,libmysqlclient-dev
    
    `sudo apt-get install mysql-server mysql-client libmysqlclient-dev`
    
