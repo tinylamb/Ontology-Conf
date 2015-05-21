@@ -30,7 +30,9 @@
    
    ```
    make -f gcc-shared.mak
-   sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib /usr/lib
+   make -f gcc.mak
+   sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib
+   sudo ln -s libboost_regex-gcc-1_42.so /usr/lib
    ````
    若存在gcc文件夹，且文件夹中只有`*.o`文件，而没有`*.so`文件。则执行下面操作
    
@@ -38,7 +40,8 @@
    
    ```
    g++ *.o -fPIC -shared -o libboost_regex-gcc-1_42.so
-   sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib /usr/lib
+   sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib 
+   sudo ln -s libboost_regex-gcc-1_42.so /usr/lib
    ````
    
    
