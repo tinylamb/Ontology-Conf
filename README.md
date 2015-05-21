@@ -43,6 +43,17 @@
    sudo ln -s libboost_regex-gcc-1_42.so /usr/local/lib 
    sudo ln -s libboost_regex-gcc-1_42.so /usr/lib
    ````
+   配置libboost_regex-gcc-1_42.so的路径，执行如下命令
+   ```
+   1  cd ~
+   2  gedit .bashrc
+   //在.bashrc文件中添加下面两行
+   export BOOST_PATH="/usr/local/boost_1_44_0"
+   export LD_LIBRARY_PATH=$BOOST_PATH/libs/regex/build/gcc
+   //保存退出
+   3  source .bashrc
+   ```
+   
    
    
 2. 安装mysql
