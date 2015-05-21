@@ -50,11 +50,16 @@
    
 3. [ltp-service](https://github.com/HIT-SCIR/ltp)
 
-   修改__ltpService/LTPOption.h文件,启用define LINUX_OS 注释掉//#define WIN_OS
+   修改__ltpService/LTPOption.h文件,对该文件进行如下修改：
    
-   在ltp_service文件内执行 `./configure;make;sudo make install`
+   ```
+   //#define LINUX_OS  ->  #define LINUX_OS 
+   #define WIN_OS      ->  //#define WIN_OS
+   ```
    
-   `make` 需要g++支持.通过`sudo apt-get install g++`安装
+   在ltp_service文件内，依次执行如下3个命令 `./configure;make;sudo make install`
+   
+   `make` 需要g++支持，如果没有安装g++(用指令`g++ -v 查看是否安装`)，则通过`sudo apt-get install g++`安装
    
    主要的**libutil libxml4nlp libservice**在 `/usr/local/lib`中
    
