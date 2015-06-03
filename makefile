@@ -1,11 +1,13 @@
 #如果提示文件找不到,添加需要的 INCLUDE，LINK 路径
 #修改时,请对比原makefile文件,并不要修改原文件(将原makefile文件备份)
+#如果提示文件找不到,添加需要的 INCLUDE，LINK 路径
+#修改时,请对比原makefile文件,并不要修改原文件(将原makefile文件备份)
 INCLUDE = ./ -I ../segment -I ../conceptRecognise -I ../utility \
 	  -I ../regexMatch -I ../include -I ../suffixTree -I ../wikiProject \
 	  -I ../relationExtractor -I ../simWord -I ../clustering -I ../pattern \
 	  -I /usr/local/include -I /usr/local/boost_1_44_0 
-VPATH =:../segment:../conceptRecognise:../utility:../suffixTree \
-    :../regexMatch:../wikiProject:../utility:../relationExtractor \
+VPATH = ../segment:../conceptRecognise:../utility:../suffixTree \
+    :../regexMatch:../wikiProject:../relationExtractor \
     :../simWord:../clustering:../pattern
 
 BOOSTLIBS = -L /usr/local/boost_1_44_0/libs/regex/build/gcc -lboost_regex-gcc-1_42
@@ -19,7 +21,7 @@ object6=relationPopulation.o mark.o kmeans.o patternUtility.o pattern.o synFores
 object7=clustering.o wordVector.o distance.o tree.o
 object8=getPattern.o editDistanceCal.o patternGenerator.o
 object=$(object1) $(object2) $(object3) $(object4) $(object5) $(object6) $(object7) $(object8) \
-       wikiInfoExtractor.o wikiInfoExtractor.o compoundConceptExtractor.o \
+       wikiInfoExtractor.o wikiInfoExtractor.o conceptRecognizor.o \
        addElement.o ontoLearner.o ontologyEnrichment.o sentParser.o
 ontologyEnrichment:$(object)
 	g++ -o ontologyEnrichment -g $^ -I$(INCLUDE) -lmysqlclient ${BOOSTLIBS} \
@@ -46,7 +48,7 @@ regexMatch.o:regexMatch.cpp
 wikiInfoExtractor.o:wikiInfoExtractor.cpp
 	g++ -g -c $^ -I$(INCLUDE) ${BOOSTLIBS} -L ../segment -lsegment
  
-compoundConceptExtractor.o:compoundConceptExtractor.cpp
+conceptRecognizor.o:conceptRecognizor.cpp
 	g++ -g -c $^ -I$(INCLUDE) -L ../segment -lsegment
  
 # cateRel.o:$(object3)
@@ -66,13 +68,13 @@ ontologyEnrichment.o:ontologyEnrichment.cpp
 	g++ -g -c $^
  
 CWikiNetworkTrainer.o: CWikiNetworkTrainer.cpp
-	g++ -g CWikiNetworkTrainer.cpp -c -o CWikiNetworkTrainer.o -I$(INCLUDE)
+	g++ -g -c $^ -I$(INCLUDE)
 fire.o :fire.cpp
 	g++ -g $^  -c -o fire.o -I$(INCLUDE)
 CWikiNetwork.o : CWikiNetwork.cpp
-	g++ -g CWikiNetwork.cpp -c -o CWikiNetwork.o -I$(INCLUDE)
+	g++ -g -c $^ -I$(INCLUDE)
 StrFun.o: StrFun.cpp
-	g++ -g StrFun.cpp -c -I$(INCLUDE)
+	g++ -g -c $^ -I$(INCLUDE)
  
 suffixTree.o:suffixTree.cpp
 	g++ -c -g $^ -I$(INCLUDE) -L ../segment -lsegment 
